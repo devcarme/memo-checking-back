@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 const http = require("http");
 const app = require("./api/app");
-
+console.log("coucou le CI/CD");
 const normalizePort = val => {
 	const port = parseInt(val, 10);
 
