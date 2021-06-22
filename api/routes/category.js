@@ -7,10 +7,7 @@ const categoryController = require("../controllers/categoryController");
 /// CATEGORIES ROUTES ///
 
 // GET request for get all categories.
-// router.get("/all", categoryController.categoryList);
-router.get("/all", function (req, res) {
-	res.send("coucou");   
-});
+router.get("/all", categoryController.categoryList);
 
 // POST request for create category.
 router.post("/create", categoryController.create);
