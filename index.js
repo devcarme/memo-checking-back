@@ -1,5 +1,3 @@
-/* eslint-disable no-irregular-whitespace */
-/* eslint-disable no-undef */
 const http = require("http");
 const app = require("./api/app");
 
@@ -14,7 +12,7 @@ const normalizePort = val => {
 	}
 	return false;
 };
-const port = normalizePort(process.env.PORT || 9000);
+const port = normalizePort(process.env.PORT || "9000");
 app.set("port", port);
 
 const errorHandler = error => {
