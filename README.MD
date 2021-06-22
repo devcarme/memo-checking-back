@@ -32,6 +32,10 @@ heroku create
 
 `git push heroku HEAD:master` 
 
+OU
+
+`git push heroku master`
+
 heroku open
 
 Afficher les logs : 
