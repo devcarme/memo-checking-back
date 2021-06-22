@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
 	process.env.DB_PROD_USER, 
 	process.env.DB_PROD_PASS, 
 	{
-		host: process.env.DB_PROD_HOST,
+		host: "eu-cdbr-west-01.cleardb.com",
 		dialect: "mysql"
 	});
 
