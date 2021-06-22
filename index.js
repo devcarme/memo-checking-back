@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 const http = require("http");
 const app = require("./api/app");
-
+console.log("coucou");
 const port = process.env.PORT || 9000;
 app.set("port", port);
 
