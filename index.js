@@ -1,18 +1,9 @@
+/* eslint-disable no-irregular-whitespace */
+/* eslint-disable no-undef */
 const http = require("http");
 const app = require("./api/app");
 
-const normalizePort = val => {
-	const port = parseInt(val, 10);
-
-	if (isNaN(port)) {
-		return val;
-	}
-	if (port >= 0) {
-		return port;
-	}
-	return false;
-};
-const port = normalizePort(process.env.PORT || "9000");
+const port = process.env.PORT || 9000;
 app.set("port", port);
 
 const errorHandler = error => {
