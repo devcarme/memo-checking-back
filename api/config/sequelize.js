@@ -1,12 +1,13 @@
 /* eslint-disable no-undef */
+require("dotenv").config();
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(
-	"heroku_aa1fbd9cb6b19fe", 
-	"b4227881b53dd8", 
-	"5738beb3", 
+	process.env.NODE_ENV === "development" ? process.env.DB_NAME : process.env.DB_PROD_NAME, 
+	process.env.NODE_ENV === "development" ? process.env.DB_USER : process.env.DB_PROD_USER, 
+	process.env.NODE_ENV === "development" ? process.env.DB_PASS : process.env.DB_PROD_PASS, 
 	{
-		host: "eu-cdbr-west-01.cleardb.com",
+		host: process.env.NODE_ENV === "development" ? process.env.DB_HOST : process.env.DB_PROD_HOST,
 		dialect: "mysql"
 	});
 

@@ -46,3 +46,7 @@ heroku logs --tail
 https://elements.heroku.com/addons/cleardb
 
 heroku config --app <YOUR-APP-NAME>
+
+configurer sequelize pour l'environnement de prod avec les configs
+
+## Procfile
