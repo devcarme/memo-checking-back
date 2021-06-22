@@ -36,3 +36,9 @@ heroku open
 
 Afficher les logs : 
 heroku logs --tail
+
+
+## ClearDB for MySQL
+https://elements.heroku.com/addons/cleardb
+
+heroku config --app <YOUR-APP-NAME>
