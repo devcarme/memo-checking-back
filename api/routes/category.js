@@ -8,7 +8,7 @@ const categoryController = require("../controllers/categoryController");
 
 // GET request for get all categories.
 // router.get("/all", categoryController.categoryList);
-router.get("all", function (req, res) {
+router.get("/all", function (req, res) {
 	res.send("coucou");   
 });
 
