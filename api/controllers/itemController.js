@@ -26,6 +26,23 @@ exports.itemList = function (req, res) {
 		});
 };
 
+// Display list of all Items.
+exports.itemListWithCategory = [
+	
+	async (req, res) => {
+		const query = "SELECT items.id, categories.name, question, answer FROM items \
+		INNER JOIN item_category ON items.id = item_category.item_id\
+		INNER JOIN categories ON item_category.category_id = categories.id";
+		const items = await sequelize.query(query, { 
+			type: QueryTypes.SELECT
+		});
+		res.status(200).json({
+			ok: true,
+			items: items
+		});
+	}
+];
+
 // Display list of items by Category on GET.
 exports.itemsByCategory = [
 	async (req, res) => {
@@ -34,7 +51,7 @@ exports.itemsByCategory = [
 		WHERE item_category.category_id = ?";
 		const items = await sequelize.query(query, { 
 			type: QueryTypes.SELECT,
-			replacements: [req.params.category	], 
+			replacements: [req.params.category], 
 		});
 		res.status(200).json({
 			ok: true,
@@ -107,4 +124,76 @@ exports.itemCreate = [
 		}
 	}
 ];
+
+// Handle Item update on PUT.
+exports.itemUpdate = [
+
+	// Validate and sanitize fields.
+	body("question").trim().isLength({ min: 1 }).escape().withMessage("Question must be specified."),
+	body("answer").trim().isLength({ min: 1 }).escape().withMessage("Question must be specified."),
+
+	// Process request after validation and sanitization.
+	async (req, res) => {
+
+		// Extract the validation errors from a request.
+		const errors = validationResult(req);
+        
+		// Create Author object with escaped and trimmed data
+
+		if (!errors.isEmpty()) {
+			// There are errors. Render form again with sanitized values/errors messages.
+			res.status(400).json({
+				ok: false
+			});
+		}
+		else {
+			Item
+				.update(
+					{ answer: req.body.answer, question: req.body.question },
+					{ where: { id: req.params.id }}
+				)
+				.then(function(){
+					res.status(204).json({
+						ok: true,
+						message: "Update de l'item ok"
+					});
+				})
+				.catch(function(){
+					res.status(400).json({
+						ok: false,
+						error: "Erreur lors de la modification de l'item"
+					});
+				}); 
+		}
+	}
+];
+
+// Handle Item delete on DELETE.
+exports.itemDelete = [
+
+	// Process request after validation and sanitization.
+	async (req, res) => {
+        
+		// Create Author object with escaped and trimmed data
+
+		Item
+			.destroy(
+				{ where: { id: req.params.id }}
+			)
+			.then(function(){
+				res.status(200).json({
+					ok: true,
+					message: "Suppression de l'item ok"
+				});
+			})
+			.catch(function(error){
+				res.status(400).json({
+					ok: false,
+					error: error
+				});
+			}); 
+	}
+];
+				
+
 

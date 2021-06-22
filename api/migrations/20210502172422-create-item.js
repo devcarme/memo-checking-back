@@ -28,7 +28,8 @@ module.exports = {
 					},
 					key: "email"
 				},
-        
+				onUpdate: "CASCADE",
+				onDelete: "CASCADE",
 				allowNull: false
 			},
 			createdAt: {

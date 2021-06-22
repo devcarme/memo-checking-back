@@ -17,7 +17,8 @@ const Item = sequelize.define("item", {
 			// This is the column name of the referenced model
 			key: "email",
 		},
-
+		onUpdate: "CASCADE",
+		onDelete: "CASCADE",
 		allowNull: false
 	}
 });
