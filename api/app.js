@@ -4,7 +4,6 @@ const cors = require("cors");
 const session = require("express-session");
 const createError = require("http-errors");
 const dotenv = require("dotenv");
-const filestore = require("session-file-store")(session);
 const userRouter = require("./routes/user");
 const itemRouter = require("./routes/item");
 const categoryRouter = require("./routes/category");
