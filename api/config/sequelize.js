@@ -2,9 +2,9 @@
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(
-	process.env.DB_PROD_NAME, 
-	process.env.DB_PROD_USER, 
-	process.env.DB_PROD_PASS, 
+	"heroku_aa1fbd9cb6b19fe", 
+	"b4227881b53dd8", 
+	"5738beb3", 
 	{
 		host: "eu-cdbr-west-01.cleardb.com",
 		dialect: "mysql"
