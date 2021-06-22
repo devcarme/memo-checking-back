@@ -1,3 +1,5 @@
+/* eslint-disable no-irregular-whitespace */
+/* eslint-disable no-undef */
 const http = require("http");
 const app = require("./api/app");
 
