@@ -228,7 +228,7 @@ exports.importCSV = [
 			});
 			console.log(created);
 				
-			let stream = fs.createReadStream("../../backend/500_mots_allemands.csv");
+			let stream = fs.createReadStream("../../500_mots_allemands.csv");
 			let csvData = [];
 			let csvStream = fastcsv
 				.parse()
