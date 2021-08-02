@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 const { QueryTypes } = require("sequelize");
 const { Op } = require("sequelize");
 const fs = require("fs");
 const mysql = require("mysql");
 const fastcsv = require("fast-csv");
+const path = require("path");
 
 const sequelize = require("../config/sequelize");
 const Item = require("../models/item");
@@ -228,7 +230,7 @@ exports.importCSV = [
 			});
 			console.log(created);
 				
-			let stream = fs.createReadStream("../../500_mots_allemands.csv");
+			let stream = fs.createReadStream(path.resolve(__dirname, "./500_mots_allemands.csv"));
 			let csvData = [];
 			let csvStream = fastcsv
 				.parse()
