@@ -1,5 +1,9 @@
 const { QueryTypes } = require("sequelize");
 const { Op } = require("sequelize");
+const fs = require("fs");
+const mysql = require("mysql");
+const fastcsv = require("fast-csv");
+
 const sequelize = require("../config/sequelize");
 const Item = require("../models/item");
 const Category = require("../models/category");
@@ -195,5 +199,77 @@ exports.itemDelete = [
 	}
 ];
 				
+// Handle Items create on POST.
+exports.importCSV = [
 
+	// Validate and sanitize fields.
+	// body("category").trim().isLength({ min: 1 }).escape().withMessage("Category must be specified."),
 
+	// Process request after validation and sanitization.
+	async (req, res) => {
+
+		// Extract the validation errors from a request.
+		const errors = validationResult(req);
+        
+		if (!errors.isEmpty()) {
+			// There are errors. Render form again with sanitized values/errors messages.
+			res.status(400).json({
+				ok: false,
+				error: errors
+			});
+		}
+		else {
+			// Data from form is valid.
+			const [ category, created ] = await Category.findOrCreate({
+				where: {
+					name: "Vocabulaire allemand",
+					user: "ducarmeloick@gmail.com"
+				}
+			});
+			console.log(created);
+				
+			let stream = fs.createReadStream("../backend/500_mots_allemands.csv");
+			let csvData = [];
+			let csvStream = fastcsv
+				.parse()
+				.on("data", function(data) {
+					csvData.push(data);
+					csvData[csvData.length-1].push("ducarmeloick@gmail.com"); 
+				})
+				.on("end", function() {
+					// remove the first line: header
+					csvData.shift();
+
+					// create a new connection to the database
+					const connection = mysql.createConnection({
+						host: "localhost",
+						user: "root",
+						password: "",
+						database: "memochecking"
+					});
+
+					// open the connection
+					connection.connect(error => {
+						if (error) {
+							console.error(error);
+						} else {
+							console.log(csvData);
+							csvData.forEach(data => {
+								let query = "INSERT INTO items (question, answer, user) VALUES (?)";
+								connection.query(query, [data], (error, response) => {
+									console.log(error || response);
+									let id = response.insertId;
+									let queryCategory = "INSERT INTO item_category (item_id, category_id) VALUES (?,?)";
+									connection.query(queryCategory, [id, category.id], (error, response) => {
+										console.log(error || response);
+									});
+								});
+							}); 
+							
+						}
+					});
+				});
+			stream.pipe(csvStream);
+		}
+	}
+];

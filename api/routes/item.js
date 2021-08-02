@@ -16,6 +16,9 @@ router.get("/allWithCategory", itemController.itemListWithCategory);
 // POST request for creating item.
 router.post("/create", itemController.itemCreate);
 
+// POST request for import items from csv.
+router.post("/importCSV", itemController.importCSV);
+
 // GET request for getting item by category.
 router.get("/getByCategory/:category", itemController.itemsByCategory);
 
