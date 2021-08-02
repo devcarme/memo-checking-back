@@ -230,7 +230,7 @@ exports.importCSV = [
 			});
 			console.log(created);
 				
-			let stream = fs.createReadStream(path.resolve(__dirname, "./500_mots_allemands.csv"));
+			let stream = fs.createReadStream(path.resolve(__dirname, "../../500_mots_allemands.csv"));
 			let csvData = [];
 			let csvStream = fastcsv
 				.parse()
